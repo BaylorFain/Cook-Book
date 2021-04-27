@@ -1,0 +1,137 @@
+\documentclass[9pt]{book}
+\usepackage[a6paper]{geometry}
+\usepackage{helvet}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{datetime}
+\usepackage{import}
+\usepackage{makeidx}
+\makeindex
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries}{}{0pt}{\Huge}
+\titlespacing*{\chapter}{0pt}{0pt}{0pt}
+\usepackage{etoolbox}
+\makeatletter
+\def\subtitle#1{\gdef\@subtitle{#1}}
+\patchcmd\maketitle
+  {{\LARGE \@title \par}}
+  {{\Huge \textbf{\@title} \par}%
+   \vskip 0.5em
+   {\Large \@subtitle \par}}
+\makeatother
+
+%\usepackage{tocloft}
+%\setlength{\cftbeforetoctitleskip}{-2cm}
+
+\makeatletter
+\let\latexl@chapter\l@chapter
+\def\l@chapter#1#2{\begingroup\let\numberline\@gobble\latexl@chapter{#1}{#2}\endgroup}
+\makeatother
+
+\makeatletter
+\let\latexl@section\l@section
+\def\l@section#1#2{\begingroup\let\numberline\@gobble\latexl@section{#1}{#2}\endgroup}
+\makeatother
+
+\usepackage{tikz}
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyfoot[C]{\import{./}{Flower.tex}\\ \thepage}
+
+\fancypagestyle{plain}{%
+\fancyhf{}
+\fancyhead[C]{\import{./}{Flower.tex}}
+\fancyfoot[C]{\import{./}{Flower.tex}\\ \thepage}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}}
+
+\usepackage{expl3}
+\ExplSyntaxOn
+\cs_new_eq:NN \Repeat \prg_replicate:nn
+\ExplSyntaxOff
+
+\usepackage{multicol}
+
+\newenvironment{VertCenter}{\clearpage\setlength{\topskip}{0pt}%
+    \newgeometry{vmargin=0cm,ignoreheadfoot}%
+    \thispagestyle{empty}%
+    \vspace*{\fill}\nointerlineskip}%
+    {\vspace*{\fill}}
+
+\usepackage{gensymb}
+
+%\tiny
+%\scriptsize
+%\footnotesize
+%\small
+%\normalsize
+%\large
+%\Large
+%\LARGE
+%\huge
+%\Huge
+
+\begin{document}
+
+\frontmatter
+\title{A lovely meal.}
+\subtitle{for any friends}
+\author{Curated by:\\Baylor Fain}
+\date{}
+%\date{\monthname[\the\month], \the\year}
+\maketitle
+
+\clearpage
+\thispagestyle{empty}
+
+\renewcommand{\contentsname}{}
+\tableofcontents
+
+\begin{VertCenter}
+\begin{flushleft}
+    to my dear friend, Tyler Case,\\
+    for the introduction to a plant-based diet,\\
+    to my loving partner, Kelli Gill,\\
+    for helping me make/test these recipes, and\\
+    to my sweet mama, Sharon Fain,\\
+    for giving me most of the original recipes.\\
+\end{flushleft}
+\end{VertCenter}
+
+\mainmatter
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Main Dishes}
+\markboth{Main Dishes}{}
+\clearpage
+
+\noindent
+\begin{small}
+\import{../Recipes/}{Gluten-Free_Vegan_Holiday_Roast_with_Filling}
+\end{small}
+
+\begin{small}
+\import{../Recipes/}{Succulent_Roast_Turky}
+\end{small}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Side Dishes}
+\markboth{Side Dishes}{}
+\clearpage
+
+\noindent
+\begin{small}
+\import{../Recipes/}{Deviled_Eggs}
+\end{small}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\chapter{Desserts}
+\markboth{Desserts}{}
+\clearpage
+
+%\noindent
+%\import{../Recipes/}{Recipe3}\\
+%\import{../Recipes/}{Recipe4}
+
+\backmatter
+
+\end{document}
